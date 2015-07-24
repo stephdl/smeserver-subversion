@@ -24,7 +24,7 @@ BuildRequires: e-smith-devtools >= 1.13.1-03
 Implementation of Subversion for SME Server 8 using WebDAV.
 
 %changelog
-* Fri July 24 2015 stephane de Labrusse <stephdl@de-labrusse.fr> 1.7-1
+* Fri Jul 24 2015 stephane de Labrusse <stephdl@de-labrusse.fr> 1.7-1
 - first release to sme9
 
 * Fri Sep 7 2012 Jonathan Martens <smeserver-contribs@snetram.nl> 1.5-3.sme
