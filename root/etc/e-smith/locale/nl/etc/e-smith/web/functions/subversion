@@ -1,0 +1,191 @@
+<lexicon lang="nl" params="getExtraParams()">
+    <entry>
+        <base>SUBVERSION_NAVIGATION_DESCRIPTION</base>
+        <trans>Subversion bewaarplaatsen</trans>
+    </entry>
+    <entry>
+        <base>CONFIG_CHANGE_SUCCESS</base>
+        <trans>Subversion is succesvol opnieuw geconfigureerd</trans>
+    </entry>
+    <entry>
+        <base>CONFIG_CHANGE_ERROR</base>
+        <trans>Er is een fout opgetreden tijdens het configureren van Subversion</trans>
+    </entry>
+    <entry>
+        <base>FORM_TITLE</base>
+        <trans>Bewaarplaatsen toevoegen, wijzigen of verwijderen</trans>
+    </entry>
+    <entry>
+        <base>FIRST_PAGE_DESCRIPTION</base>
+        <trans><![CDATA[ <p>This panel allows configuration of Subversion. Subversion is the replacement of CVS. More details can be found on their site: <a href="http://subversion.tigris.org" target="_blank">http://subversion.tigris.org</a>.</p> ]]></trans>
+    </entry>
+    <entry>
+	<base>ADD_REPOSITORY</base>
+        <trans><![CDATA[ <p>You can remove any repository or modify its settings by clicking on the corresponding command next to the repository.</p><p><a class="button-like" href="subversion?page=0&page_stack=&Next=Next&wherenext=CreateModify">Add repository</a><br /><br /></p> ]]></trans>
+    </entry>
+
+    <entry>
+	<base>ADD_TITLE</base>
+	<trans>Bewaarplaats toevoegen of wijzigen</trans>
+    </entry>
+    <entry>
+	<base>NAME_FIELD_DESC</base>
+	<trans>De bewaarplaats naam mag alleen kleine letters, cijfers, punten, koppeltekens en lage streepjes bevatten en moet met een kleine letter beginnen. Bijvoorbeeld "jansen", "intra" en "klant3.pr12" zijn allemaal correcte namen, maar "3vrienden", "Jan Smit" en "Bus!Vrienden" zijn dat niet. De naam is gelimiteerd tot {$maxLength} tekens.</trans>
+    </entry>
+    <entry>
+	<base>REMOVE_TITLE</base>
+	<trans>Bewaarplaats verwijderen</trans>
+    </entry>
+    <entry>
+        <base>REMOVE_DESC</base>
+        <trans><![CDATA[ <p> You are about to remove the repository "{$name}" ({$description}). </p> <p> All files belonging to this repository will be deleted. </p> <p> Are you sure you wish to remove this repository? </p> ]]></trans>
+    </entry>
+    <entry>
+        <base>BUTTON_LABEL_SERVICE_0</base>
+        <trans>Aktiveer</trans>
+    </entry>
+    <entry>
+        <base>BUTTON_LABEL_SERVICE_1</base>
+        <trans>Deaktiveer</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODSSL_0</base>
+        <trans>modSSL is niet actief</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODSSL_1</base>
+        <trans>modSSL is actief</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAV_0</base>
+        <trans>modDAV is niet actief</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAV_1</base>
+        <trans>modDAV is actief</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAVSVN_0</base>
+        <trans>modDAVSVN is niet actief</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAVSVN_1</base>
+        <trans>modDAVSVN is actief</trans>
+    </entry>
+    <entry>
+        <base>FORCE_SSL</base>
+        <trans>Forceer HTTP via SSL</trans>
+    </entry>
+    <entry>
+        <base>AUTHENTIFICATION_REQUIRED</base>
+        <trans><![CDATA[ Authentification required <br /> (enables HTTP over SSL automatically) ]]></trans>
+    </entry>
+    <entry>
+        <base>SVN_AUTOVERSIONING</base>
+        <trans>Activeer auto-versioning</trans>
+    </entry>
+    <entry>
+        <base>MOD_MIME_USE_PATH_INFO</base>
+        <trans>Bepaal MIME type automatisch</trans>
+    </entry>
+    <entry>
+        <base>GROUPS_READ</base>
+        <trans>Groepen (alleen lees toegang)</trans>
+    </entry>
+    <entry>
+        <base>GROUPS_WRITE</base>
+        <trans>Groepen (alleen schrijf toegang)</trans>
+    </entry>
+    <entry>
+        <base>USERS_READ</base>
+        <trans>Gebruikers (alleen lees toegang)</trans>
+    </entry>
+    <entry>
+        <base>USERS_WRITE</base>
+        <trans>Gebruikers (met schrijf toegang)</trans>
+    </entry>
+    <entry>
+        <base>PRIVILEGES</base>
+        <trans>If you set neither group nor user setting for a privilege, the privilege will default to anonymous access. The only exception is when you have specified only read privileges (either for user(s), group(s) or both), there will be no anonymous write access.<br />If you want your user(s) or group(s) to have full access specify them in both the read and the write box.</trans>
+     </entry>
+    <entry>
+        <base>ERROR_WHILE_CREATING_REPOSITORY</base>
+        <trans>Er is een fout opgetreden tijdens het aanmaken van de bewaarplaats.</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_CREATED_REPOSITORY</base>
+        <trans>Bewaarplaats is met succes toegevoegd.</trans>
+    </entry>
+    <entry>
+        <base>NO_REPOSITORIES</base>
+        <trans>Er zijn op dit moment geen bewaarplaatsen geconfigureerd.</trans>
+    </entry>
+    <entry>
+        <base>CANT_FIND_REPOSITORY</base>
+        <trans>Kan account "{$name}" niet vinden (bestaat het?)</trans>
+    </entry>
+    <entry>
+        <base>CANT_CREATE_REPOSITORY</base>
+        <trans>Kan nieuwe account voor "{$name}" niet toevoegen (bestaat het al?)</trans>
+    </entry>
+    <entry>
+        <base>ERROR_WHILE_MODIFYING_REPOSITORY</base>
+        <trans>Er is een fout opgetreden bij het wijzigen van de subversion bewaarplaats.</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_MODIFIED_REPOSITORY</base>
+        <trans>Bewaarplaats is met succes gewijzigd.</trans>
+    </entry>
+    <entry>
+        <base>VIRTUAL_HOST_MESSAGE</base>
+        <trans>De volgende virtuele domeinen gebruiken deze informatie-baai voor hun inhoud. Dit zal worden aangepast naar de primaire web site (u kunt dit achteraf aanpassen).</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_DELETED_REPOSITORY</base>
+        <trans>Bewaarplaats is met succes verwijderd.</trans>
+    </entry>
+    <entry>
+        <base>ERROR_WHILE_DELETING_REPOSITORY</base>
+        <trans>Er is een fout opgetreden bij het verwijderen van de Subversion bewaarplaats.</trans>
+    </entry>
+    <entry>
+        <base>ACCT_NAME_HAS_INVALID_CHARS</base>
+        <trans>De Subversion bewaarplaats naam "{$acctName}" bevat illegale tekens. Bewaarplaats namen moeten starten met een kleine letter en mogen alleen kleine letters, cijfers and koppeltekens bevatten.</trans>
+    </entry>
+    <entry>
+        <base>DESCRIPTION_HAS_INVALID_CHARS</base>
+        <trans>De Subversion bewaarplaats beschrijving "{$acctName}" bevat ongeldige tekens. Bewaarplaats beschrijvingen moeten starten met een kleine letter en moeten alleen kleine letters, cijfers and koppeltekens bevatten.</trans>
+    </entry>
+    <entry>
+        <base>DESCRIPTION_SHOULD_NOT_BE_EMPTY</base>
+        <trans>De Subversion bewaarplaats beschrijving mag niet leeg zijn. Bewaarplaats beschrijvingen moeten starten met een kleine letter en moeten alleen kleine letters, cijfers and koppeltekens bevatten.</trans>
+    </entry>
+    <entry>
+        <base>MAX_REPOSITORY_NAME_LENGTH_ERROR</base>
+        <trans>De bewaarplaats naam "{$name}" is te lang. De maximale lengte is {$maxIbayNameLength} tekens.</trans>
+    </entry>
+    <entry>
+        <base>ACCT_CLASHES_WITH_PSEUDONYM</base>
+        <trans><![CDATA[ The account "{$acctName}" clashes with pseudonym details for {$acctType} account "{$acct}". <p>{$acctName} is a pseudonym for {$acct}.</p> ]]></trans>
+    </entry>
+    <entry>
+        <base>ACCOUNT_EXISTS</base>
+        <trans>De account "{$acctName}" is een bestaande {$acctType} account.</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODDAV_RECORD</base>
+        <trans>Er mist een configuratie instelling voor de modDAV service</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODDAVSVN_RECORD</base>
+        <trans>Er mist een configuratie instelling voor de modDAVSVN service</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODSSL_RECORD</base>
+        <trans>Er mist een configuratie instelling voor de modSSL service</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODAUTHZSVN_RECORD</base>
+        <trans>Er mist een configuratie instelling voor de modAuthzSVN service</trans>
+    </entry>
+</lexicon>

@@ -1,0 +1,187 @@
+<lexicon lang="fr" params="getExtraParams()">
+    <entry>
+        <base>SUBVERSION_NAVIGATION_DESCRIPTION</base>
+        <trans>Dépôts Subversion</trans>
+    </entry>
+    <entry>
+        <base>CONFIG_CHANGE_SUCCESS</base>
+        <trans>Subversion a été reconfiguré avec succès</trans>
+    </entry>
+    <entry>
+        <base>CONFIG_CHANGE_ERROR</base>
+        <trans>Une erreur est survenue lors de la configuration de Subversion</trans>
+    </entry>
+    <entry>
+        <base>FORM_TITLE</base>
+        <trans>Créer, modifier ou supprimer des dépôts</trans>
+    </entry>
+    <entry>
+        <base>FIRST_PAGE_DESCRIPTION</base>
+        <trans><![CDATA[ <p>Cet écran permet la configuration de Subversion. Subversion est une alternative à CVS. Plus de détails peuvent être trouvés sur leur site: <a href="http://subversion.tigris.org" target="_blank">http://subversion.tigris.org</a>.</p> ]]></trans>
+    </entry>
+    <entry>
+	<base>ADD_REPOSITORY</base>
+        <trans><![CDATA[ <p> Vous pouvez supprimer un dépôt ou modifier ses paramètres en cliquant sur la commande correspondante après le nom du dépôt. </p> <p> <a class="button-like" href="subversion?page=0&page_stack=&Next=Next&wherenext=CreateModify">Ajouter un dépôt</a><br/><br/> </p> ]]></trans>
+    </entry>
+
+    <entry>
+	<base>ADD_TITLE</base>
+	<trans>Créer ou modifier un dépôt</trans>
+    </entry>
+    <entry>
+	<base>NAME_FIELD_DESC</base>
+	<trans>Le nom du dépôt ne peut contenir que des lettres minuscules, des nombres, des points, des traits d'union et des tirets bas, et doit débuter par une lettre minuscule. Par exemple "martin", "intra" et "client3.prj12" sont des noms valides. Mais "3associés", "Marcel Dupont" et "Part!Affaire" ne le sont pas. Le nom est limité à {$maxLength} caractères.</trans>
+    </entry>
+    <entry>
+	<base>REMOVE_TITLE</base>
+	<trans>Supprimer un dépôt</trans>
+    </entry>
+    <entry>
+        <base>REMOVE_DESC</base>
+        <trans><![CDATA[ <p> Vous êtes sur le point de supprimer le dépôt "{$name}" ({$description}). </p> <p> Tous les fichiers appartenant à ce dépôt vont être supprimés. </p> <p> Êtes-vous sûr de vouloir supprimer ce dépôt ? </p> ]]></trans>
+    </entry>
+    <entry>
+        <base>BUTTON_LABEL_SERVICE_0</base>
+        <trans>Activer</trans>
+    </entry>
+    <entry>
+        <base>BUTTON_LABEL_SERVICE_1</base>
+        <trans>Désactiver</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODSSL_0</base>
+        <trans>Le service modSSL est désactivé</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODSSL_1</base>
+        <trans>Le service modSSL est activé</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAV_0</base>
+        <trans>Le service modDAV est désactivé</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAV_1</base>
+        <trans>Le service modDAV est activé</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAVSVN_0</base>
+        <trans>Le service modDAVSVN est désactivé</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAVSVN_1</base>
+        <trans>Le service modDAVSVN est activé</trans>
+    </entry>
+    <entry>
+        <base>FORCE_SSL</base>
+        <trans>Forcer HTTP avec SSL</trans>
+    </entry>
+    <entry>
+        <base>AUTHENTIFICATION_REQUIRED</base>
+        <trans><![CDATA[ Authentification requise<br /> (active HTTP avec SSL automatiquement) ]]></trans>
+    </entry>
+    <entry>
+        <base>SVN_AUTOVERSIONING</base>
+        <trans>Activer l'auto-versioning</trans>
+    </entry>
+    <entry>
+        <base>MOD_MIME_USE_PATH_INFO</base>
+        <trans>Déterminer automatiquement le type MIME</trans>
+    </entry>
+    <entry>
+        <base>GROUPS_READ</base>
+        <trans>Groupes (accès en lecture seule)</trans>
+    </entry>
+    <entry>
+        <base>GROUPS_WRITE</base>
+        <trans>Groupes (accès en écriture)</trans>
+    </entry>
+    <entry>
+        <base>USERS_READ</base>
+        <trans>Utilisateurs (accès en lecture seule)</trans>
+    </entry>
+    <entry>
+        <base>USERS_WRITE</base>
+        <trans>Utilisateurs (accès en écriture)</trans>
+    </entry>
+    <entry>
+        <base>PRIVILEGES</base>
+        <trans>Si vous ne réglez aucun privilèges utilisateur ou de groupe,les privilèges par défaut seront accès anonyme. La seule exception est si vous avez spécifié uniquement un accès en lecture seule (pour utilisateur ou groupe ou les deux), il n'y aura aucun accès écriture anonyme.<br/> Si vous voulez qu'il y'a un accès complet utilisateur ou groupe sélectionnez les aussi bien dans les boites lecture et écriture.</trans>
+     </entry>
+    <entry>
+        <base>ERROR_WHILE_CREATING_REPOSITORY</base>
+        <trans>Une erreur est survenue lors de la création du dépôt.</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_CREATED_REPOSITORY</base>
+        <trans>Le dépôt a été créé avec succès.</trans>
+    </entry>
+    <entry>
+        <base>NO_REPOSITORIES</base>
+        <trans>Il n'y a aucun dépôt configuré.</trans>
+    </entry>
+    <entry>
+        <base>CANT_FIND_REPOSITORY</base>
+        <trans>Il est impossible de trouver le compte "{$name}" (existe-t-il ?)</trans>
+    </entry>
+    <entry>
+        <base>CANT_CREATE_REPOSITORY</base>
+        <trans>Il est impossible de créer le nouveau compte pour "{$name}" (existe-t-il déjà ?)</trans>
+    </entry>
+    <entry>
+        <base>ERROR_WHILE_MODIFYING_REPOSITORY</base>
+        <trans>Une erreur est survenue lors de la modification du dépôt.</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_MODIFIED_REPOSITORY</base>
+        <trans>La modification du dépôt a été réalisée avec succès.</trans>
+    </entry>
+    <entry>
+        <base>VIRTUAL_HOST_MESSAGE</base>
+        <trans>Les domaines virtuels suivant utilisaient cette baie d'information pour leur contenu et seront associés au site internet primaire (vous pouvez les associer à quelque chose d'autre plus tard).</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_DELETED_REPOSITORY</base>
+        <trans>La suppression du dépôt a été réalisée avec succès.</trans>
+    </entry>
+    <entry>
+        <base>ERROR_WHILE_DELETING_REPOSITORY</base>
+        <trans>Une erreur est survenue lors de la suppression du dépôt.</trans>
+    </entry>
+    <entry>
+        <base>ACCT_NAME_HAS_INVALID_CHARS</base>
+        <trans>Le nom du dépôt "{$acctName}" contient des caractères non valides. Les noms de dépôt doivent débuter par une lettre minuscule et ne contenir que des lettres minuscules, des nombres, des points, des traits d'union et des tirets bas.</trans>
+    </entry>
+    <entry>
+        <base>DESCRIPTION_HAS_INVALID_CHARS</base>
+        <trans>La description du dépôt "{$repoDescription}" contient des caractères non valides. Les descriptions de dépôt doivent débuter par une lettre minuscule et ne contenir que des lettres minuscules, des nombres, des points, des traits d'union et des tirets bas.</trans>
+    </entry>
+    <entry>
+        <base>MAX_REPOSITORY_NAME_LENGTH_ERROR</base>
+        <trans>Le nom du dépôt "{$name}" est trop long. Le maximum est de {$maxIbayNameLength} caractères.</trans>
+    </entry>
+    <entry>
+        <base>ACCT_CLASHES_WITH_PSEUDONYM</base>
+        <trans><![CDATA[ Le compte "{$acctName}" est en conflit avec les informations de pseudonyme du compte {$acctType} : "{$acct}". <p>{$acctName} est un pseudonyme pour  {$acct}.</p> ]]></trans>
+    </entry>
+    <entry>
+        <base>ACCOUNT_EXISTS</base>
+        <trans>Le compte "{$acctName}" est un compte existant de type {$acctType}.</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODDAV_RECORD</base>
+        <trans>Donnée de base absente pour le service modDAV</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODDAVSVN_RECORD</base>
+        <trans>Donnée de base absente pour le service modDAVSVN</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODSSL_RECORD</base>
+        <trans>Donnée de base absente pour le service modSSL</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODAUTHZSVN_RECORD</base>
+        <trans>Donnée de base absente pour le service modAuthzSVN</trans>
+    </entry>
+</lexicon>

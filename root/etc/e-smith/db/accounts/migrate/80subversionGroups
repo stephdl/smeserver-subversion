@@ -1,0 +1,10 @@
+{
+    foreach my $repository ($DB->get_all_by_prop('type' => 'repository'))
+    {
+        my $property = $DB->get_prop_and_delete($repository->key, 'Groups') or next;
+
+        $repository->merge_prop('GroupsWrite', $property) unless $repository->prop('GroupsWrite');
+        $repository->merge_prop('GroupsRead', $property) unless $repository->prop('GroupsRead');
+
+    }
+}

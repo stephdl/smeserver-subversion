@@ -1,0 +1,58 @@
+#!/usr/bin/perl -w
+
+package esmith;
+
+use strict;
+use Errno;
+use esmith::util;
+
+my $event = $ARGV [0];
+my $item = $ARGV [1];
+
+#------------------------------------------------------------
+# Delete the user from subversion repositories
+#------------------------------------------------------------
+
+die "Username argument missing." unless defined ($item);
+
+my @entries = qw();
+
+if ($event eq 'user-delete') {
+
+    @entries = qw(UsersWrite UsersRead);
+
+} elsif ($event eq 'group-delete') {
+
+    @entries = qw(GroupsWrite GroupsRead);
+
+} else {
+
+    die "Invalid event: $event";
+
+}
+
+use esmith::AccountsDB;
+
+my $db_accounts = esmith::AccountsDB->open() or
+    die "Couldn't open AccountsDB\n";
+
+my @repositories = $db_accounts->get_all_by_prop('type' => 'repository');
+
+REPOSITORY: foreach my $repository (
+    (@repositories),
+)
+{
+    my $repository_rec = $db_accounts->get($repository->key()) || next REPOSITORY;
+
+    foreach my $entry (@entries) {
+
+        my $members = $repository_rec->prop($entry);
+        my @members = split (/,/, $members);
+        @members = grep (!/^$item$/, @members);
+        $repository_rec->set_prop($entry, join(',', @members));
+
+    }
+
+}
+
+exit(0);

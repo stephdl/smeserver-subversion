@@ -1,0 +1,359 @@
+{
+    # $Id: 28SubversionContent 1 2006-05-29 11:25:58Z jonathan $
+    #
+    # Subversion Repositories Template
+    #
+    # This configures the Apache 2.x webserver to be able to function
+    # as a Subversion repository server using DAV.
+    #
+    # Copyright (C) 2006 Jonathan Martens <jonathan@snetram.nl>
+    #
+    # This file should not be edited. If you want to make changes to it
+    # copy it to the /etc/e-smith/templates-custom directory and make
+    # your modifications in the new copy. This way modifications are
+    # saved when the system is restored from a backup or confihuration
+    # changes are made.
+    #
+    # This section will configure the neccesarry directory settings to
+    # enable the webserver to manage the configured repositories
+
+    use esmith::ConfigDB;
+    use esmith::AccountsDB;
+
+    my $db_config = esmith::ConfigDB->open_ro() or
+        die "Couldn't open ConfigDB\n";
+
+    my $modDAVSVN = $db_config->get("modDAVSVN") or
+        die "Key 'modDAVSVN' not found in Configuration database\n";
+
+    my $modDAVSVNStatus = lc($modDAVSVN->prop("status")) or
+        die "Property 'status' not found in key 'modDAVSVN'\n";
+
+    $OUT = "";
+
+    if ( $modDAVSVNStatus eq 'enabled' ) {
+
+        my $db_accounts = esmith::AccountsDB->open_ro() or
+            die "Couldn't open AccountsDB\n";
+
+        my @repositories = $db_accounts->get_all_by_prop('type' => 'repository');
+
+        foreach my $repository (
+            (@repositories),
+        )
+        {
+
+            my $key = $repository->key;
+            my %properties = $repository->props;
+
+            my $error = "";
+            my $forceSSL = '';
+
+            my $allow;
+            my $pass;
+            my $satisfy;
+
+            if ($properties{'AccessType'}) {
+
+                if ($properties{'AccessType'} eq 'global') {
+
+                    $allow   = 'all';
+                    $pass    = 0;
+                    $satisfy = 'all';
+
+                } elsif ($properties{'AccessType'} eq 'private') {
+
+                    $allow   = join (' ', ($localAccess, $externalSSLAccess)) ;
+                    $pass    = 0;
+                    $satisfy = 'all';
+
+                } elsif ($properties{'AccessType'} eq 'local') {
+                    
+
+                    $allow   = $localAccess;
+                    $pass    = 0;
+                    $satisfy = 'all';
+
+                } else {
+
+                    # Catch all incorrect values, including empty ones
+
+                    $allow   = '127.0.0.1';
+                    $pass    = 0;
+                    $satisfy = 'all';
+
+                }
+
+            }
+
+            if ($properties{'AuthentificationRequired'}) {
+
+                if ($properties{'AuthentificationRequired'} eq 'yes') {
+
+                    $pass = 1;
+
+                } else {
+
+                    $pass = 0;
+
+                }
+
+            }
+
+            if ($properties{'ForceSSL'}) {
+
+                if ($properties{'ForceSSL'} eq 'yes') {
+
+                    $forceSSL = 1;
+
+                } else {
+
+                    $forceSSL = 0;
+
+                }
+
+            }
+
+            my $SVNAutoVersioning = $properties{'SVNAutoVersioning'} || 'off';
+            my $ModMimeUsePathInfo = $properties{'ModMimeUsePathInfo'} || 'off';
+
+            my $allowOverride = $properties{'AllowOverride'} || "None";
+
+            my $usersRead;
+            my $groupsRead = '';
+            my @listRead;
+
+            if ($properties{'GroupsRead'}) {
+
+                my @groupsRead = split (/,/, $properties{'GroupsRead'});
+
+                foreach my $groupRead (@groupsRead) {
+
+                    my $record = $db_accounts->get($groupRead);
+
+                    if ($record) {
+
+                        my $membersRead = $record->prop('Members') || "";
+
+                        if (length($membersRead) > 0) {
+
+                            push @listRead, split (/,/, $membersRead);
+
+                        }
+
+                    }
+                     
+                }
+
+            }
+
+            if ($properties{'UsersRead'}) {
+
+                push @listRead, split (/,/, $properties{'UsersRead'});
+
+            } 
+
+            if (@listRead > 1) {
+
+                @listRead = sort(@listRead);
+
+            }
+
+            my $prevRead = '';
+            @listRead = grep($_ ne $prevRead && (($prevRead) = $_), @listRead);
+
+            $usersRead = join(" ", @listRead) || '';
+
+            undef @listRead;
+
+            my $usersWrite;
+            my $groupsWrite = '';
+            my @listWrite;
+
+            if ($properties{'GroupsWrite'}) {
+
+                my @groupsWrite = split (/,/, $properties{'GroupsWrite'});
+
+                foreach my $groupWrite (@groupsWrite) {
+
+                    my $record = $db_accounts->get($groupWrite);
+
+                    if ($record) {
+
+                        my $membersWrite = $record->prop('Members') || "";
+
+                        if (length($membersWrite) > 0) {
+
+                            push @listWrite, split (/,/, $membersWrite);
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            if ($properties{'UsersWrite'}) {
+
+                push @listWrite, split (/,/, $properties{'UsersWrite'});
+
+            }
+
+            if (@listWrite > 1) {
+
+                @listWrite = sort(@listWrite);
+
+            }
+
+            my $prevWrite = '';
+            @listWrite = grep($_ ne $prevWrite && (($prevWrite) = $_), @listWrite);
+
+            $usersWrite = join(" ", @listWrite) || '';
+
+            undef @listWrite;
+
+            $OUT .= "\n";
+            $OUT .= "    #------------------------------------------------------------\n";
+            $OUT .= "    # $key repository directory ($properties{'Description'})\n";
+            $OUT .= "    #------------------------------------------------------------\n\n";
+
+            # port = 80 &&
+            #  forceSSL = yes || pass = 1
+            #  groupsWrite ne "" &&
+            #   groupsRead || usersRead
+            #   groupsRead && usersRead
+            #  usersWrite ne "" &&
+            #   groupsRead || usersRead
+            #   groupsRead && usersRead
+
+            if ( ($port eq 80) && ( ($forceSSL eq 'yes') || ($pass eq 1) || ($groupsRead ne "") || ($usersRead ne "") || ( ($groupsRead ne "") && ($usersRead ne "") ) ) ){
+
+                $OUT .= "    # Redirecting: Only access over SSL allowed\n";
+                $OUT .= "    RewriteEngine on\n";
+                $OUT .= "    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)\n";
+                $OUT .= "    RewriteRule .* - [F]\n";
+                $OUT .= "    RewriteRule ^/$key(/.*|\$)    https://%{HTTP_HOST}/$key\$1 [L,R]\n\n";
+
+            } else {
+
+                if ( ( ($port eq 80) && ($forceSSL ne 'yes') && ($pass ne 1) ) || ($port eq 443) ) {
+
+                    if ($port eq 443) {
+
+			if (-f "/usr/lib64/httpd/modules/pwauth") {
+				$OUT .= "    AddExternalAuth pwauth /usr/lib64/httpd/modules/pwauth\n";
+			} else {
+				$OUT .= "    AddExternalAuth pwauth /usr/lib/httpd/modules/pwauth\n";
+			}
+
+                        $OUT .= "    SetExternalAuthMethod pwauth pipe\n\n";
+
+                    }
+
+                    $OUT .= "    <Location /$key>\n\n";
+
+                    $OUT .= "        DAV svn\n";
+                    $OUT .= "        SVNPath /home/e-smith/files/repositories/$key\n\n";
+
+                    $OUT .= "        SVNAutoVersioning $SVNAutoVersioning\n\n";
+                    $OUT .= "        ModMimeUsePathInfo $ModMimeUsePathInfo\n\n";
+
+                    if ( ($port eq 443) && ( ($forceSSL eq 'yes') || ($pass eq 1) ) && ($groupsWrite ne "") || ($usersWrite ne "") || ($groupsRead ne "") || ($usersRead ne "") ) {
+
+                        $OUT .= "        AuthName \"$properties{'Description'}\"\n";
+                        $OUT .= "        AuthType Basic\n";
+                        $OUT .= "        AuthExternal pwauth\n\n";
+
+                    }
+
+                    $OUT .= "        # Read access:\n";
+                    $OUT .= "        #  Anonymous access\n" unless ( ($groupsRead ne "") || ($usersRead ne "") );
+                    $OUT .= "        #  Group(s): " . ($groupsRead || "none") . "\n" unless ($groupsRead eq "");
+                    $OUT .= "        #  User(s) : " . ($usersRead || "none") . "\n" unless ($usersRead eq "");
+
+#                    $OUT .= "        <LimitExcept GET PROPFIND OPTIONS REPORT>\n";
+                    $OUT .= "        <Limit GET PROPFIND OPTIONS REPORT>\n";
+
+                    $OUT .= "            order deny,allow\n";
+                    $OUT .= "            deny from all\n";
+
+                    if ( ( ($groupsRead eq "") && ($usersRead eq "") ) || ( ( ($groupsRead ne "") || ($usersRead ne "") ) && ($port eq 443) ) ) {
+
+                        $OUT .= "            allow from $allow\n";
+                        $OUT .= "            Require group $groupsRead\n" unless ($groupsRead eq "");
+                        $OUT .= "            Require user $usersRead\n" unless ($usersRead eq "");
+
+                    } else {
+
+                        $OUT .= "            # Denying access:\n";
+                        $OUT .= "            # User authentication required this requires SSL\n";
+
+                    }
+
+                    $OUT .= "            Satisfy $satisfy\n";
+#                    $OUT .= "        </LimitExcept>\n\n";
+                    $OUT .= "        </Limit>\n\n";
+
+                    $OUT .= "        # Full access:\n";
+                    $OUT .= "        #  Anonymous access\n" unless ( ($groupsWrite ne "") || ($usersWrite ne "") );
+                    $OUT .= "        #  Group(s): " . ($groupsWrite || "none") . "\n" unless ($groupsWrite eq "");
+                    $OUT .= "        #  User(s) : " . ($usersWrite || "none") . "\n" unless ($usersWrite eq "");
+
+#                    $OUT .= "        <Limit GET PROPFIND OPTIONS REPORT>\n";
+                    $OUT .= "        <LimitExcept GET PROPFIND OPTIONS REPORT>\n";
+
+                    $OUT .= "            order deny,allow\n";
+                    $OUT .= "            deny from all\n";
+
+                    if ( 
+                         ( ($port eq 443) && 
+                           (
+                             ( ($groupsRead eq "") && ($usersRead eq "") ) ||
+                             ( ($groupsWrite eq "") || ($usersWrite eq "") ) && ( ($groupsRead eq "") && ($usersRead eq "") ) ||
+                             ( ($usersRead ne "") && ( ($groupsWrite ne "") || ($usersWrite ne "") || ( ($groupsWrite ne "") && ($usersWrite ne "") ) ) ) ||
+                             ( ($groupsRead ne "") && ( ($groupsWrite ne "") || ($usersWrite ne "") || ( ($groupsWrite ne "") && ($usersWrite ne "") ) ) ) 
+                           )
+                         ) || ( 
+                           ($port eq 80) && 
+                           ( ($groupsWrite eq "") && ($usersWrite eq "") && ($groupsRead eq "") && ($usersRead eq "") ) 
+                         )
+                       ) {
+
+                        $OUT .= "            allow from $allow\n";
+                        $OUT .= "            Require group $groupsWrite\n" unless ($groupsWrite eq "");
+                        $OUT .= "            Require user $usersWrite\n" unless ($usersWrite eq "");
+
+                    } else {
+
+                        $OUT .= "            # Denying access:\n";
+
+                        if ( ($groupsRead ne "") || ($usersRead ne "") || ( ($groupsRead ne "") && ($usersRead ne "") ) ) {
+
+                            $OUT .= "            # Read authentication required, no anonymous write access allowed\n";
+
+                        } else {
+
+                            $OUT .= "            # SSL required, no access allowed without.\n";
+                        }
+
+                    }
+
+                    $OUT .= "            Satisfy $satisfy\n";
+#                    $OUT .= "        </Limit>\n\n";
+                    $OUT .= "        </LimitExcept>\n\n";
+
+#                    $OUT .= "        Satisfy $satisfy\n\n";
+#                    $OUT .= "        Satisfy any\n\n";
+
+                    $OUT .= "    </Location>\n\n";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

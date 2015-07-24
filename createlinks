@@ -1,0 +1,45 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks qw(:all);
+
+for my $event (qw(
+    repository-create
+    repository-modify
+    repository-delete
+    subversion-modify
+    user-create
+    user-modify
+    user-delete
+    group-modify
+    group-delete
+    ))
+{
+    safe_symlink("sigusr1", "root/etc/e-smith/events/$event/services2adjust/httpd-e-smith");
+    templates2events("/etc/httpd/conf/httpd.conf", $event)
+}
+
+for my $event (qw(
+    repository-modify
+    repository-create
+    ))
+{
+    event_link("repository-modify", $event, "05");
+}
+
+for my $event (qw(
+    repository-delete
+    subversion-delete
+    ))
+{
+    event_link($event, $event, "05");
+}
+
+for my $event (qw(
+    user-delete
+    group-delete
+    ))
+{
+    event_link("subversion-delete-from-access-list", $event, "04");
+}
+
+panel_link('subversion', 'manager');

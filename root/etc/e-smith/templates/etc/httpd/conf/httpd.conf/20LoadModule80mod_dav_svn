@@ -1,0 +1,26 @@
+{
+    # $Id: 20LoadModule80mod_dav_svn 1 2006-05-29 11:25:58Z jonathan $
+    #
+    # Subversion Repositories Template
+    #
+    # This configures the Apache 2.x webserver to be able to function
+    # as a Subversion repository server using DAV.
+    #
+    # Copyright (C) 2006 Jonathan Martens <jonathan@snetram.nl>
+    #
+    # This file should not be edited. If you want to make changes to it
+    # copy it to the /etc/e-smith/templates-custom directory and make
+    # your modifications in the new copy. This way modifications are
+    # saved when the system is restored from a backup or confihuration
+    # changes are made.
+    #
+    # This section will load the Subversion DAV module when enabled
+
+    my $status = $modDAVSVN{status} || 'disabled';
+    my $statusDAV = $modDAV{status} || 'disabled';
+    if ( ($statusDAV eq "enabled" ) && ( $status eq "enabled" ) )
+    {
+        $OUT = "LoadModule dav_svn_module\tmodules/mod_dav_svn.so";
+    }
+}
+

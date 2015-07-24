@@ -1,0 +1,187 @@
+<lexicon lang="ro" params="getExtraParams()">
+    <entry>
+        <base>SUBVERSION_NAVIGATION_DESCRIPTION</base>
+        <trans>Subversion repositories</trans>
+    </entry>
+    <entry>
+        <base>CONFIG_CHANGE_SUCCESS</base>
+        <trans>Subversion was succesfully reconfigured</trans>
+    </entry>
+    <entry>
+        <base>CONFIG_CHANGE_ERROR</base>
+        <trans>An error occurred while configuring Subversion</trans>
+    </entry>
+    <entry>
+        <base>FORM_TITLE</base>
+        <trans>Create, modify, or remove repositories</trans>
+    </entry>
+    <entry>
+        <base>FIRST_PAGE_DESCRIPTION</base>
+        <trans><![CDATA[ <p>This panel allows configuration of Subversion. Subversion is the replacement of CVS. More details can be found on their site: <a href="http://subversion.tigris.org" target="_blank">http://subversion.tigris.org</a>.</p> ]]></trans>
+    </entry>
+    <entry>
+	<base>ADD_REPOSITORY</base>
+        <trans><![CDATA[ <p>You can remove any repository or modify its settings by clicking on the corresponding command next to the repository.</p><p><a class="button-like" href="subversion?page=0&page_stack=&Next=Next&wherenext=CreateModify">Add repository</a><br /><br /></p> ]]></trans>
+    </entry>
+
+    <entry>
+	<base>ADD_TITLE</base>
+	<trans>Create or modify a repository</trans>
+    </entry>
+    <entry>
+	<base>NAME_FIELD_DESC</base>
+	<trans>The repository name should contain only lower-case letters, numbers, periods, hyphens and underscores, and should start with a lower-case letter. For example "johnson", "intra", and "cust3.prj12" are all valid names, but "3associates", "John Smith" and "Bus!Partner" are not. The name is limited to {$maxLength} characters.</trans>
+    </entry>
+    <entry>
+	<base>REMOVE_TITLE</base>
+	<trans>Remove repository</trans>
+    </entry>
+    <entry>
+        <base>REMOVE_DESC</base>
+        <trans><![CDATA[ <p> You are about to remove the repository "{$name}" ({$description}). </p> <p> All files belonging to this repository will be deleted. </p> <p> Are you sure you wish to remove this repository? </p> ]]></trans>
+    </entry>
+    <entry>
+        <base>BUTTON_LABEL_SERVICE_0</base>
+        <trans>Enable</trans>
+    </entry>
+    <entry>
+        <base>BUTTON_LABEL_SERVICE_1</base>
+        <trans>Disable</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODSSL_0</base>
+        <trans>modSSL is disabled</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODSSL_1</base>
+        <trans>modSSL is enabled</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAV_0</base>
+        <trans>modDAV is disabled</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAV_1</base>
+        <trans>modDAV is enabled</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAVSVN_0</base>
+        <trans>modDAVSVN is disabled</trans>
+    </entry>
+    <entry>
+        <base>SERVICE_MODDAVSVN_1</base>
+        <trans>modDAVSVN is enabled</trans>
+    </entry>
+    <entry>
+        <base>FORCE_SSL</base>
+        <trans>Force HTTP over SSL</trans>
+    </entry>
+    <entry>
+        <base>AUTHENTIFICATION_REQUIRED</base>
+        <trans><![CDATA[ Authentification required <br /> (enables HTTP over SSL automatically) ]]></trans>
+    </entry>
+    <entry>
+        <base>SVN_AUTOVERSIONING</base>
+        <trans>Enable auto-versioning</trans>
+    </entry>
+    <entry>
+        <base>MOD_MIME_USE_PATH_INFO</base>
+        <trans>Automatically determine MIME type</trans>
+    </entry>
+    <entry>
+        <base>GROUPS_READ</base>
+        <trans>Groups (read access)</trans>
+    </entry>
+    <entry>
+        <base>GROUPS_WRITE</base>
+        <trans>Groups (write access)</trans>
+    </entry>
+    <entry>
+        <base>USERS_READ</base>
+        <trans>Users (read access)</trans>
+    </entry>
+    <entry>
+        <base>USERS_WRITE</base>
+        <trans>Users (write access)</trans>
+    </entry>
+    <entry>
+        <base>PRIVILEGES</base>
+        <trans>If you set neither group nor user setting for a privilege, the privilege will default to anonymous access. The only exception is when you have specified only read privileges (either for user(s), group(s) or both), there will be no anonymous write access.<br />If you want your user(s) or group(s) to have full access specify them in both the read and the write box.</trans>
+     </entry>
+    <entry>
+        <base>ERROR_WHILE_CREATING_REPOSITORY</base>
+        <trans>An error occurred while creating the repository.</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_CREATED_REPOSITORY</base>
+        <trans>Successfully created repository.</trans>
+    </entry>
+    <entry>
+        <base>NO_REPOSITORIES</base>
+        <trans>There are currently no repositories configured.</trans>
+    </entry>
+    <entry>
+        <base>CANT_FIND_REPOSITORY</base>
+        <trans>Can't find account for "{$name}" (does it exist?)</trans>
+    </entry>
+    <entry>
+        <base>CANT_CREATE_REPOSITORY</base>
+        <trans>Can't create new account for "{$name}" (does it already exist?)</trans>
+    </entry>
+    <entry>
+        <base>ERROR_WHILE_MODIFYING_REPOSITORY</base>
+        <trans>An error occurred while modifying the repository.</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_MODIFIED_REPOSITORY</base>
+        <trans>Successfully modified repository.</trans>
+    </entry>
+    <entry>
+        <base>VIRTUAL_HOST_MESSAGE</base>
+        <trans>The following virtual domains were using this information bay as their content and will be changed to the primary web site (you can change them to something else afterward).</trans>
+    </entry>
+    <entry>
+        <base>SUCCESSFULLY_DELETED_REPOSITORY</base>
+        <trans>Successfully deleted repository.</trans>
+    </entry>
+    <entry>
+        <base>ERROR_WHILE_DELETING_REPOSITORY</base>
+        <trans>An error occurred while deleting the repository.</trans>
+    </entry>
+    <entry>
+        <base>ACCT_NAME_HAS_INVALID_CHARS</base>
+        <trans>The repository name "{$acctName}" contains invalid characters. Repository names must start with a lower case letter and contain only lower case letters, numbers, and hyphens.</trans>
+    </entry>
+    <entry>
+        <base>DESCRIPTION_HAS_INVALID_CHARS</base>
+        <trans>The repository description "{$repoDescription}" contains invalid characters. Repository descriptions must start with a lower case letter and contain only lower case letters, numbers, and hyphens.</trans>
+    </entry>
+    <entry>
+        <base>MAX_REPOSITORY_NAME_LENGTH_ERROR</base>
+        <trans>The repository name "{$name}" is too long. The maximum is {$maxIbayNameLength} characters.</trans>
+    </entry>
+    <entry>
+        <base>ACCT_CLASHES_WITH_PSEUDONYM</base>
+        <trans><![CDATA[ The account "{$acctName}" clashes with pseudonym details for {$acctType} account "{$acct}". <p>{$acctName} is a pseudonym for {$acct}.</p> ]]></trans>
+    </entry>
+    <entry>
+        <base>ACCOUNT_EXISTS</base>
+        <trans>The account "{$acctName}" is an existing {$acctType} account.</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODDAV_RECORD</base>
+        <trans>Missing database entry for modDAV service</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODDAVSVN_RECORD</base>
+        <trans>Missing database entry for modDAVSVN service</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODSSL_RECORD</base>
+        <trans>Missing database entry for modSSL service</trans>
+    </entry>
+    <entry>
+        <base>ERR_NO_MODAUTHZSVN_RECORD</base>
+        <trans>Missing database entry for modAuthzSVN service</trans>
+    </entry>
+</lexicon>

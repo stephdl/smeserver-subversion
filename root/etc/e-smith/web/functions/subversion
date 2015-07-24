@@ -1,0 +1,239 @@
+#!/usr/bin/perl -wT
+# vim: ft=xml:
+
+#----------------------------------------------------------------------
+# heading     : Collaboration
+# description : SUBVERSION_NAVIGATION_DESCRIPTION
+# navigation  : 2500 2600
+#----------------------------------------------------------------------
+
+use strict;
+use warnings;
+
+use esmith::FormMagick::Panel::subversion;
+
+my $f = esmith::FormMagick::Panel::subversion->new();
+$f->display();
+
+=pod
+
+=head1 NAME
+
+repositories -- add/remove/manage repositories
+
+=head2 DESCRIPTION
+
+This screen allows the administrator to manage information bays.
+
+=begin testing
+
+use esmith::FormMagick::Tester;
+use esmith::TestUtils;
+use esmith::TestUtils;
+use esmith::ConfigDB;
+use esmith::AccountsDB;
+
+my $panel = $Original_File;
+my $ua = esmith::FormMagick::Tester->new();
+
+my $c = esmith::ConfigDB->open();
+my $a = esmith::AccountsDB->open();
+
+is  (mode($panel), '4750',              "Check permissions on script");
+ok  ($ua->get_panel($panel),            "ABOUT TO RUN L10N TESTS");
+is  ($ua->{status}, 200,                "200 OK");
+#like($ua->{content}, qr/FORM_TITLE/,    "Saw untranslated form title");
+ok  ($ua->set_language("en"),           "Set language to English");
+ok  ($ua->get_panel($panel),            "Get panel");
+is  ($ua->{status}, 200,                "200 OK");
+
+ok  ($ua->get_panel($panel),            "ABOUT TO TEST CREATING REPOSITORY");
+ok  ($ua->follow("Click here"),         "Follow 'create repository' 
+link");
+is  ($ua->{status}, 200,                "200 OK");
+like($ua->{content}, qr/Create a new repository/,   "Saw page 
+title");
+like($ua->{content}, qr/Brief description/,    "Saw description field");
+like($ua->{content}, qr/Add/,                  "Saw add button");
+
+SKIP: {
+
+    skip 10, "Unsafe!" unless destruction_ok();
+
+    ok  ($ua->follow("Click here"),         "ACTUALLY ADDING A NETWORK");
+    $ua->field();
+    $ua->click("Add");
+    like($ua->{content}, qr/Successfully added repository/,  "Saw success 
+message");
+
+    ok  ($ua->follow("Remove"),         "REMOVING NETWORK");
+    like($ua->{content}, qr/Are you sure/,  "Saw confirmation message");
+    $ua->click("Remove");
+    like($ua->{content}, qr/Successfully deleted/,  "Saw success 
+message");
+
+}
+
+
+=cut
+
+
+__DATA__
+<form
+    title="FORM_TITLE"
+    header="/etc/e-smith/web/common/head.tmpl"
+    footer="/etc/e-smith/web/common/foot.tmpl">
+
+    <!-- page 0 -->
+    <page 
+	name="First" 
+	pre-event="print_status_message()">
+	
+	<description>FIRST_PAGE_DESCRIPTION</description>
+        <subroutine src="subversion_status_print()" />
+        <subroutine src="subversion_repository_add_print()" />
+        <subroutine src="subversion_repository_print()" />
+
+    </page>
+
+    <!-- page 1 -->
+    <page name="CreateModify" 
+	pre-event="turn_off_buttons()" 
+	post-event="handle_repositories()">
+
+        <title>ADD_TITLE</title>
+        <subroutine src="print_repository_name_field()" />
+        <field 
+	    type="text" 
+            id="description"
+            validation="validate_description">
+            <label>DESCRIPTION</label>
+        </field>
+
+        <field 
+	    type="radio" 
+            id="access_type" 
+            options="'global', 'private', 'local'"
+            validation="validate_radio">
+	    <label>ACCESS</label>
+	</field>
+        
+        <field 
+	    type="radio" 
+            id="authentification_required" 
+            options="'yes', 'no'" 
+            validation="validate_radio">
+	    <label>AUTHENTIFICATION_REQUIRED</label>
+	</field>
+
+        <field 
+	    type="radio" 
+            id="force_ssl" 
+            options="'yes', 'no'"
+            validation="validate_radio">
+	    <label>FORCE_SSL</label>
+	</field>
+        
+        <field 
+	    type="radio" 
+            id="autoversioning" 
+            options="'on', 'off'"
+            validation="validate_radio">
+	    <label>SVN_AUTOVERSIONING</label>
+	</field>
+        
+        <field 
+	    type="radio" 
+            id="mime" 
+            options="'on', 'off'"
+            validation="validate_radio">
+	    <label>MOD_MIME_USE_PATH_INFO</label>
+	</field>
+        
+        <subroutine src="print_privileges()" />
+
+        <field 
+            type="select" 
+            id="groupsRead" 
+            options="group_list()" 
+            multiple="1" size="5">
+            <label>GROUPS_READ</label>
+        </field>
+        
+        <field 
+            type="select" 
+            id="groupsWrite" 
+            options="group_list()" 
+            multiple="1" size="5">
+            <label>GROUPS_WRITE</label>
+        </field>
+
+        <field 
+	    type="select" 
+	    id="usersRead" 
+            options="user_list()" 
+	    multiple="1" size="5">
+            <label>USERS_READ</label>
+        </field>
+
+        <field 
+	    type="select" 
+	    id="usersWrite" 
+            options="user_list()" 
+	    multiple="1" size="5">
+            <label>USERS_WRITE</label>
+        </field>
+
+        <subroutine src="print_save_or_add_button()" />
+    </page>
+
+    <!-- page 2 -->
+    <page 
+	name="Remove" 
+	pre-event="turn_off_buttons()" 
+	post-event="remove_repository()">
+        
+	<title>REMOVE_TITLE</title>
+        <description>REMOVE_DESC</description>
+        <subroutine src="print_vhost_message()" />
+        
+	<subroutine src="print_button('REMOVE')" />
+
+    </page>
+    
+    <!-- page 3
+         This is only a wrapper to start a sub, and then go direct back
+         to the front page.
+    -->
+    <page
+        name="mod_ssl_status_change"
+        post-event="mod_ssl_status_change">
+    </page>
+
+    <!-- page 4
+         This is only a wrapper to start a sub, and then go direct back
+         to the front page.
+    -->
+    <page
+        name="mod_dav_status_change"
+        post-event="mod_dav_status_change">
+    </page>
+
+    <!-- page 5
+         This is only a wrapper to start a sub, and then go direct back
+         to the front page.
+    -->
+    <page
+        name="mod_dav_svn_status_change"
+        post-event="mod_dav_svn_status_change">
+    </page>
+
+    <!-- page 6
+         This is only a wrapper to start a sub, and then go direct back
+         to the front page.
+    -->
+    <page
+        name="mod_authz_svn_status_change"
+        post-event="mod_authz_svn_status_change">
+    </page>
+</form>

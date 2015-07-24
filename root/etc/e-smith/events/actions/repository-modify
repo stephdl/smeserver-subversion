@@ -1,0 +1,75 @@
+#!/usr/bin/perl -w
+#----------------------------------------------------------------------
+# $Id
+# vim: ft=perl ts=4 sw=4 et:
+#----------------------------------------------------------------------
+# $Copyright
+#
+# This file is part of the "Subversion repositories" panel in the
+# SME Server server-manager panel to configure subversion repositories.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
+#----------------------------------------------------------------------
+
+package esmith;
+
+use strict;
+use Errno;
+use File::Find;
+use esmith::util;
+use esmith::templates;
+use esmith::AccountsDB;
+use esmith::ConfigDB;
+
+$ENV{'PATH'} = "/bin";
+
+my $event = $ARGV [0];
+my $repositoryName = $ARGV [1];
+
+die "repositoryName argument missing" unless defined ($repositoryName);
+
+my $accountdb = esmith::AccountsDB->open_ro();
+my $repository = $accountdb->get($repositoryName) or 
+	die "Couldn't find $repositoryName record in accounts db\n";
+
+die "Account $repositoryName is not an repository account; modify repository event failed.\n"
+    unless ($repository->prop('type') eq 'repository');
+
+if ($event eq 'repository-create')
+{
+    #------------------------------------------------------------
+    # Create the repository files
+    #------------------------------------------------------------
+
+    system("/usr/bin/svnadmin", "create",
+	"/home/e-smith/files/repositories/$repositoryName") == 0
+	    or die "Error copying repository skeletal files";
+
+}
+elsif ($event eq 'repository-modify')
+{
+}
+
+#------------------------------------------------------------
+# Fix permissions on repository files.
+#------------------------------------------------------------
+
+chdir "/home/e-smith/files/repositories/$repositoryName"
+   or die "Could not chdir to /home/e-smith/files/repositories/$repositoryName";
+
+system("/bin/chown", "-R", "www:www", "/home/e-smith/files/repositories/$repositoryName") == 0
+   or die "Could not change ownership of /home/e-smith/files/repositories/$repositoryName";
+
+chmod 0755, ".";
