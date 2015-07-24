@@ -11,7 +11,7 @@ Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Applications/Internet
-Source: %{name}-%{version}.tgz
+Source: %{name}-%{version}.tar.gz
 BuildArchitectures: noarch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: smeserver-mod_dav subversion >= 1.2 
