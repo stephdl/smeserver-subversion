@@ -5,8 +5,8 @@
 Summary: Subversion for SME Server
 %define name smeserver-subversion
 Name: %{name}
-%define version 1.5
-%define release 3
+%define version 1.7
+%define release 4
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -15,7 +15,7 @@ Source: %{name}-%{version}.tgz
 BuildArchitectures: noarch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: smeserver-mod_dav subversion >= 1.2 
-Requires: smeserver-release >= 8 
+Requires: smeserver-release >= 9 
 Requires: mod_dav_svn httpd >= 2 
 Requires: e-smith-formmagick >= 1.4.0-12
 BuildRequires: e-smith-devtools >= 1.13.1-03
@@ -24,6 +24,9 @@ BuildRequires: e-smith-devtools >= 1.13.1-03
 Implementation of Subversion for SME Server 8 using WebDAV.
 
 %changelog
+* Fri July 24 2015 stephane de Labrusse <stephdl@de-labrusse.fr> 1.7-1
+- first release to sme9
+
 * Fri Sep 7 2012 Jonathan Martens <smeserver-contribs@snetram.nl> 1.5-3.sme
 - Fix location of pwauth on 64 bit systems [SME: 7093]
 
