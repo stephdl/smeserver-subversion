@@ -55,7 +55,7 @@ our @EXPORT = qw(
     print_save_or_add_button
     validate_name
     validate_radio
-    validate_description
+    validate_description_subversion
     wherenext
 );
 
@@ -967,14 +967,14 @@ sub validate_radio {
 
 }
 
-=head2 validate_description()
+=head2 validate_description_subversion()
 
 #Checks that the name supplied does not contain any unacceptable chars.
 #Returns OK on success or a localised error message otherwise.
 
 =cut
 
-sub validate_description {
+sub validate_description_subversion {
 
     my ($self, $description) = @_;
 

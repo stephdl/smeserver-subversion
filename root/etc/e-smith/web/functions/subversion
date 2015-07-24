@@ -106,7 +106,7 @@ __DATA__
         <field 
 	    type="text" 
             id="description"
-            validation="validate_description">
+            validation="validate_description_subversion">
             <label>DESCRIPTION</label>
         </field>
 
