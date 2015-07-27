@@ -241,12 +241,7 @@
 
                     if ($port eq 443) {
 
-			if (-f "/usr/lib64/httpd/modules/pwauth") {
-				$OUT .= "    AddExternalAuth pwauth /usr/lib64/httpd/modules/pwauth\n";
-			} else {
-				$OUT .= "    AddExternalAuth pwauth /usr/lib/httpd/modules/pwauth\n";
-			}
-
+                        $OUT .= "    AddExternalAuth pwauth /usr/bin/pwauth\n";
                         $OUT .= "    SetExternalAuthMethod pwauth pipe\n\n";
 
                     }

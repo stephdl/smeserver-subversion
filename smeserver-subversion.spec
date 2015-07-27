@@ -6,7 +6,7 @@ Summary: Subversion for SME Server
 %define name smeserver-subversion
 Name: %{name}
 %define version 1.7
-%define release 2
+%define release 3
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -24,8 +24,9 @@ BuildRequires: e-smith-devtools >= 1.13.1-03
 Implementation of Subversion for SME Server 9 using WebDAV.
 
 %changelog
-* Mon Jul 27 2015 stephane de Labrusse <stephdl@de-labrusse.fr> 1.7-2
+* Mon Jul 27 2015 stephane de Labrusse <stephdl@de-labrusse.fr> 1.7-3
 - added AuthBasicProvider external to the http authentication
+- correct path to pwauth
 
 * Fri Jul 24 2015 stephane de Labrusse <stephdl@de-labrusse.fr> 1.7-1
 - first release to sme9
