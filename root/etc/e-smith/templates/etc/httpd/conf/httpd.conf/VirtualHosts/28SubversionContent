@@ -262,6 +262,7 @@
                     if ( ($port eq 443) && ( ($forceSSL eq 'yes') || ($pass eq 1) ) && ($groupsWrite ne "") || ($usersWrite ne "") || ($groupsRead ne "") || ($usersRead ne "") ) {
 
                         $OUT .= "        AuthName \"$properties{'Description'}\"\n";
+                        $OUT .= "        AuthBasicProvider external\n";
                         $OUT .= "        AuthType Basic\n";
                         $OUT .= "        AuthExternal pwauth\n\n";
 
